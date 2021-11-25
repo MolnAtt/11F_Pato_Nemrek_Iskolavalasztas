@@ -5,7 +5,7 @@ using namespace std;
 
 bool Jo(int i, int j, vector<int> X, vector<vector<int>> Y, vector<int> kapacitasok)
 {
-	return;
+	return 0 < Y[i][X[i]] && 0 < kapacitasok[Y[i][X[i]] - 1]; // választott valamit ÉS ott van is még szabad kapacitás
 }
 
 int main()
@@ -30,24 +30,36 @@ int main()
 	int i = 0;
 	while (-1<i && i < N)
 	{
-		int j = X[i] + 1;
-		if (j<2 && Jo(i, j, X, Y, kapacitasok))
+		X[i]++;
+		if (X[i]<2 && Jo(i, X[i], X, Y, kapacitasok))
 		{
-			//kapacitasok[...]--
-			X[i++] = j;
+			--kapacitasok[Y[i][X[i]] - 1];
+			i++;
 		}
 		else
 		{
-			//kapacitasok[...]++
-			X[i--] = -1;
+			X[i] = -1; // eleve -1 van ott?
+			i--;
+			++kapacitasok[Y[i][X[i]] - 1];
 		}
 	}
 
 	// X indextárolóból értéktárolót csinálunk
 	for (int ix = 0; ix < N; ix++)
-		X[i] = Y[i][X[ix]];
+		X[ix] = Y[ix][X[ix]];
+
 
 	// Kiírás
-	for (auto& elem : X)
-		cout << elem << " ";
+	if (i==-1)
+	{
+		cout << -1;
+	}
+	else
+	{
+		for (auto& elem : X)
+			cout << elem << " ";
+	}
+
+
+
 }
