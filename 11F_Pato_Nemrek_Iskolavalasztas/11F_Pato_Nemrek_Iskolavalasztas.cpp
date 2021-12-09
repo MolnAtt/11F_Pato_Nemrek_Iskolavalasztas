@@ -5,13 +5,13 @@ using namespace std;
 
 bool Jo(int i, int j, vector<int> X, vector<vector<int>> Y, vector<int> kapacitasok)
 {
-	return 0 < Y[i][X[i]] && 0 < kapacitasok[Y[i][X[i]] - 1]; // választott valamit ÉS ott van is még szabad kapacitás
+	return 0 < Y[i][X[i]] && 0 < kapacitasok[Y[i][X[i]] - 1]; // vÃ¡lasztott valamit Ã‰S ott van is mÃ©g szabad kapacitÃ¡s
 }
 
 int main()
 {
 
-	// Beolvasás
+	// BeolvasÃ¡s
 	int N, M;
 
 	cin >> N >> M;
@@ -26,7 +26,7 @@ int main()
 	for (int i = 0; i < M; i++)
 		cin >> kapacitasok[i];
 
-	// Fõprogram
+	// FÃµprogram
 	int i = 0;
 	while (-1<i && i < N)
 	{
@@ -40,16 +40,18 @@ int main()
 		{
 			X[i] = -1; // eleve -1 van ott?
 			i--;
+			if (i == -1)
+				break;
 			++kapacitasok[Y[i][X[i]] - 1];
 		}
 	}
 
-	// X indextárolóból értéktárolót csinálunk
+	// X indextÃ¡rolÃ³bÃ³l Ã©rtÃ©ktÃ¡rolÃ³t csinÃ¡lunk
 	for (int ix = 0; ix < N; ix++)
 		X[ix] = Y[ix][X[ix]];
 
 
-	// Kiírás
+	// KiÃ­rÃ¡s
 	if (i==-1)
 	{
 		cout << -1;
